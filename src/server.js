@@ -3,15 +3,13 @@ const cors = require('cors');
 require('dotenv').config();
 
 const pool = require('./db');
+const taskRoutes = require('./routes/tasks');
 
 const app = express();
 
-const PORT = process.env.PORT || 3000;
-
-const taskRoutes = require('./routes/tasks');
-
 app.use(cors());
 app.use(express.json());
+
 app.use('/api/tasks', taskRoutes);
 
 app.get('/', (req, res) => {
@@ -39,6 +37,4 @@ app.get('/api/health', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`TaskFlow API running on http://localhost:${PORT}`);
-});
+module.exports = app;
